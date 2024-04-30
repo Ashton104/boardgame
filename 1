@@ -1,0 +1,100 @@
+//ultrasonic
+const int trigPin = 13;
+const int echoPin = 12;
+//buzzer
+const int buzzer = 8;
+
+//LED
+long randNumber;
+const int btn = 7;
+const int red = 6;
+const int orn = 5;
+const int yel = 4;
+const int grn = 3;
+const int blu = 2;
+
+
+void setup() {
+ //ultrasonic
+ pinMode(trigPin, OUTPUT);
+ pinMode(echoPin, INPUT);
+ pinMode(buzzer, OUTPUT);
+ Serial.begin(9600);
+ 
+ //LED
+  pinMode(red, OUTPUT);
+  pinMode(orn, OUTPUT);
+  pinMode(yel, OUTPUT);
+  pinMode(grn, OUTPUT);
+  pinMode(blu, OUTPUT);
+  pinMode(btn, INPUT);
+  //random number setup
+  Serial.begin(9600);
+  randomSeed(analogRead(0));
+}
+
+void loop() {
+ //ultrasonic
+ long duration, cm;  
+   digitalWrite(trigPin, LOW);
+   delayMicroseconds(2);
+   digitalWrite(trigPin, HIGH);
+   delayMicroseconds(5);
+   digitalWrite(trigPin, LOW);
+   
+   duration = pulseIn(echoPin, HIGH);
+    // convert the time into a distance
+    cm = microsecondsToCentimetres(duration);
+
+    Serial.print(cm);
+    Serial.print("cm");
+    Serial.println();  
+    delay(100);
+
+    //buzzer turnng on code
+    if(cm <= 5){
+    digitalWrite(buzzer, HIGH);
+    }
+
+    //buzzer turnng off code
+    if(cm > 5){
+    digitalWrite(buzzer, LOW);
+    }
+    
+ 
+ //LED
+  if(digitalRead(btn) == HIGH){ 
+    //random number
+   randNumber = random(1, 6);
+   Serial.println(randNumber);
+   delay(200);
+  }
+  
+  //random number to colour
+  if(randNumber == 5){
+   digitalWrite(red, HIGH);
+  }
+
+  if(randNumber == 4){
+    digitalWrite(orn, HIGH);
+  }
+  
+   if(randNumber == 3){
+    digitalWrite(yel, HIGH);
+  }
+  
+  if(randNumber == 2){
+   digitalWrite(grn, HIGH);
+  }
+
+  if(randNumber == 1){
+   digitalWrite(blu, HIGH);
+  }
+
+}
+
+//ultrasonic
+long microsecondsToCentimetres(long microseconds)
+{
+  return microseconds / 29 / 2;
+}
