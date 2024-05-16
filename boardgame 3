@@ -1,6 +1,6 @@
 
 //Liniar magnetic hall sensor
-  int buzzer = 8; // LED on arduino
+  int buzzer = 8;
   int digitalPin = 10; // linear Hall magnetic sensor digital interface
   int analogPin = A0; // linear Hall magnetic sensor analog interface
   int digitalVal ; // digital readings
@@ -20,7 +20,6 @@ void setup() {
  //Liniar magnetic hall sensor
   pinMode (buzzer, OUTPUT); 
   pinMode (digitalPin, INPUT); 
-  //pinMode(analogPin, INPUT); 
   Serial.begin(9600);
  
  //LED
@@ -38,7 +37,7 @@ void setup() {
 void loop() {
  //Liniar magnetic hall sensor
  digitalVal = digitalRead(digitalPin) ; 
-  if (digitalVal == HIGH) // When magnetic field is present, Arduino LED is on
+  if (digitalVal == HIGH)
   {
     tone(buzzer, 1000);
   }
